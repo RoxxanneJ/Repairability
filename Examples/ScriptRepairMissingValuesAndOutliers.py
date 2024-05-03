@@ -7,14 +7,12 @@ from pyod.models.iforest import IForest
 if __name__ == '__main__':
     freeze_support()
     cpus = cpu_count()
-    for dataset in ['iris', 'cancer', 'adult', 'heart', 'statlog', 'spambase', 'abalone', 'bean']:
-        print(dataset)
-        dir_path = "dataset/" + dataset + "/trusted_test/"
-        X_test = pd.read_csv(dir_path + dataset + "_test.csv")
+    for p in [30, 35]:
+        file = "../Datasets/bean/missing_outlier/bean_train_missing_outlier_" + str(p) + "_cleaned.csv"
+        X_test = pd.read_csv("../Datasets/bean/bean_test.csv")
         y_test = X_test['class'].copy()
         X_test.drop(columns=['class'], inplace=True)
-        file_path = dir_path + dataset + "_train.csv"
-        X_train = pd.read_csv(file_path)
+        X_train = pd.read_csv(file)
         y_train = X_train['class'].copy()
         X_train.drop(columns=['class'], inplace=True)
 
@@ -28,4 +26,4 @@ if __name__ == '__main__':
         X_train['class'] = y_train.copy()
         X_train.drop(X_train[X_train['outlier'] == 1].index, inplace=True)
         X_train.drop(columns=['outlier'], inplace=True)
-        X_train.to_csv(dir_path + "/clean/" + dataset + "_train_IForest_cleaned.csv", index=False)
+        X_train.to_csv("../Datasets/bean/missing_outlier/repaired/bean_train_missing_outlier_"+str(p)+"_repaired.csv", index=False)

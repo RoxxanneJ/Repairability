@@ -1,3 +1,9 @@
+import numpy as np
+import pandas as pd
+
+bean40 = pd.read_csv("Datasets/bean/missing_outlier/bean_train_missing_outlier_30.csv")
+bean40.dropna(inplace=True)
+print(bean40)
 # This is a sample Python script.
 
 # Press ⌃R to execute it or replace it with your code.
